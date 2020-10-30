@@ -1,7 +1,6 @@
 library(conflicted)
 conflict_prefer("Map", "rgee")
 
-library(fs)
 library(sf)
 library(rgee)
 ee_Initialize()
@@ -34,11 +33,10 @@ rawdat <- ee_extract(mosaic, samps_ee, scale = 1)
 
 library(dplyr)
 library(tidyr)
-avng_bands <- read.table(path("data", "aviris-ng.txt")) %>%
+avng_bands <- read.table("aviris-ng.txt") %>%
   select(wavelength = V2, fwhm = V3) %>%
   arrange(wavelength) %>%
   mutate(wavelength = wavelength * 1000,
-         fwhm = fwhm * 1000,
          band = paste0("B", row_number() - 1)) %>%
   as_tibble()
 
@@ -46,9 +44,11 @@ procdat <- rawdat %>%
   mutate(id = row_number()) %>%
   pivot_longer(-id, names_to = "band", values_to = "value") %>%
   left_join(avng_bands, "band") %>%
-  select(id, band, wavelength, value) %>%
   arrange(id, wavelength)
 
-outdir <- dir_create(path("data", "derived"))
-write.table(procdat, path(outdir, "neon-pixels.csv"),
-            row.names = FALSE, sep = ",", quote = FALSE)
+if (interactive()) {
+  library(ggplot2)
+  ggplot(procdat) +
+    aes(x = wavelength, y = value, group = id) +
+    geom_line()
+}
