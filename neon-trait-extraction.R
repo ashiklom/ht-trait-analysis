@@ -28,7 +28,7 @@ m2 <- Map$addLayer(samps_ee, list(color = "red"), "samples")
 m1 + m2
 
 # Extract pixels from image
-rawdat <- ee_extract(mosaic, samps_ee)
+rawdat <- ee_extract(mosaic, samps_ee, scale = 1)
 
 library(dplyr)
 library(tidyr)
