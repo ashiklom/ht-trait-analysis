@@ -213,6 +213,76 @@ the_plan <- drake_plan(
             ylab = "Calibration noise")
     abline(h = 0, lty = "dashed", col = "black")
     dev.off()
-  }
+  },
+
+  poster_reflectance_uncertain = {
+    reflfile <- propagated_refl %>%
+      str_subset("cal_NONE") %>%
+      head(1)
+    refl_r <- brick(reflfile)
+    wl <- get_raster_wl(refl_r)
+    ibad <- bad_wl(wl)
+    refl <- t(refl_r[ispec, ])
+    refl[refl < 0] <- 0
+    refl[ibad,] <- NA
+    refl_lo <- apply(refl, 1, min)
+    refl_hi <- apply(refl, 1, max)
+    refl_mu <- rowMeans(refl)
+    plt <- ggplot() +
+      aes(x = wl, y = refl_mu, ymin = refl_lo, ymax = refl_hi) +
+      geom_ribbon(fill = "gray70") +
+      geom_line() +
+      theme_base() +
+      labs(x = "Wavelength (nm)", y = "Reflectance [0, 1]")
+    ggsave(file_out(!!path(figdir, "poster-reflectance-uncertainty.png")), plt,
+           width = 3.7, height = 2.7, units = "in", dpi = 300)
+  },
+
+  poster_plsr_coefficients = {
+    pls_coefs_raw <- map_dfr(pls_coef_files, read.csv, .id = "file") %>%
+      mutate(file = path_file(file) %>%
+               str_remove("PLS_coefficients_Mode_A_") %>%
+               str_remove("\\.csv")) %>%
+      as_tibble()
+    pls_coefs_tidy <- pls_coefs_raw %>%
+      select(-Intercept) %>%
+      pivot_longer(
+        starts_with("WVL_"),
+        names_to = "wavelength",
+        values_to = "value",
+        names_transform = list(wavelength = ~as.numeric(str_remove(.x, "WVL_")))
+      )
+
+    pls_coefs_summary <- pls_coefs_tidy %>%
+      group_by(file, wavelength) %>%
+      summarize(
+        Mean = mean(value),
+        lo = quantile(value, 0.025),
+        hi = quantile(value, 0.975)
+      ) %>%
+      ungroup()
+
+    plt <- pls_coefs_summary %>%
+      mutate(variable = factor(
+        file,
+        c("pct_N", "pct_C", "M_area"),
+        c("Leaf %N", "Leaf %C", "Leaf mass per area")
+      )) %>%
+      filter(!is.na(variable)) %>%
+      ggplot() +
+      aes(x = wavelength, y = Mean, ymin = lo, ymax = hi) +
+      geom_ribbon(fill = "gray80") +
+      geom_line() +
+      facet_grid(vars(variable), scales = "free_y") +
+      geom_hline(yintercept = 0, linetype = "dashed") +
+      theme_base() +
+      theme(axis.text.y = element_blank(),
+            axis.ticks = element_blank()) +
+      labs(x = "Wavelength (nm)", y = "PLS coefficient")
+
+    ggsave(file_out(!!path(figdir, "poster-PLS-coefficients.png")), plt,
+           width = 3.3, height = 4.0, units = "in", dpi = 600)
+  },
+
 
 )

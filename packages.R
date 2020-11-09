@@ -11,6 +11,8 @@ library(purrr)
 library(progress)
 library(Rcpp)
 library(RcppArmadillo)
+library(ggplot2)
+library(ggthemes)
 
 conflict_prefer("select", "dplyr")
 conflict_prefer("filter", "dplyr")
