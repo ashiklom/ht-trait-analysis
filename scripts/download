@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+OUTDIR=./data/derived/ht-output/
+mkdir -p ${OUTDIR}
+
+SERVER=${1:-discover}
+
+if [ "$SERVER" = "discover" ]; then
+    rsync -avz --progress \
+        discover:~/projects/sbg-uncertainty/isofit-calibration/examples/py-hypertrace/output/traitanalysis/ \
+        ${OUTDIR}/
+elif [ "$SERVER" = "adapt" ]; then
+    rsync -avz --progress \
+        adapt:~/projects/sbg-uncertainty/isofit/examples/py-hypertrace/output/traitanalysis/ \
+        ${OUTDIR}/
+else
+    echo "Unkonwn server"
+    exit 1
+fi

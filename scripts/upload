@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+SERVER=${1:-discover}
+
+if [ "$SERVER" = "discover" ]; then
+    rsync -avz --progress \
+        ./data/derived/zz-traitanalysis \
+        discover:~/projects/sbg-uncertainty/isofit-calibration/examples/py-hypertrace/
+elif [ "$SERVER" = "adapt" ]; then
+    rsync -avz --progress \
+        ./data/derived/zz-traitanalysis \
+        adapt:~/projects/sbg-uncertainty/isofit/examples/py-hypertrace/
+else
+    echo "Unkonwn server"
+    exit 1
+fi
