@@ -273,7 +273,8 @@ the_plan <- drake_plan(
       aes(x = wavelength, y = Mean, ymin = lo, ymax = hi) +
       geom_ribbon(fill = "gray80") +
       geom_line() +
-      facet_grid(vars(variable), scales = "free_y") +
+      facet_grid(vars(variable), scales = "free_y",
+                 labeller = label_wrap_gen(10)) +
       geom_hline(yintercept = 0, linetype = "dashed") +
       theme_base() +
       theme(axis.text.y = element_blank(),
@@ -284,5 +285,271 @@ the_plan <- drake_plan(
            width = 3.3, height = 4.0, units = "in", dpi = 600)
   },
 
+  poster_plsr_one_result = {
+    plsrfiles <- plsr_result %>%
+      str_subset("(M_area|pct_C|pct_N)\\.rds") %>%
+      head(3)
+    dq <- distributions3::quantile
+    plsr_l <- lapply(plsrfiles, readRDS)
+    dists <- map(plsr_l, ~Normal(.x[1, ispec, "Mean"], .x[1, ispec, "SD"]))
+    names(dists) <- path_file(path_ext_remove(plsrfiles))
+    png(path(figdir, "poster-plsr-one-result.png"), width = 2, height = 4,
+        units = "in", res = 600)
+    par(mfrow = c(3, 1), mar = c(3, 0.1, 0.1, 0.1))
+    dn <- dists[["pct_N"]]
+    curve(pdf(dn, x), dq(dn, 0.001), dq(dn, 0.999),
+          n = 1000, xlab = "", ylab = "", yaxt = "n")
+    dc <- dists[["pct_C"]]
+    curve(pdf(dc, x), dq(dc, 0.001), dq(dc, 0.999),
+          n = 1000, xlab = "", ylab = "", yaxt = "n")
+    dl <- dists[["M_area"]]
+    curve(pdf(dl, x), dq(dl, 0.001), dq(dl, 0.999),
+          n = 1000, xlab = "", ylab = "", yaxt = "n")
+    dev.off()
+  },
+
+  poster_plsr_results = target({
+    all_plsrfiles <- dir_ls("data/derived/ht-output",
+                            regexp = "\\.rds", recurse = TRUE)
+    plsr_info <- parse_ht_directory(all_plsrfiles) %>%
+      mutate(plsr_var = path_ext_remove(fname) %>%
+               path_file() %>%
+               str_remove("-[[:digit:]]+"))
+
+    tidy_plsr <- function(fname) {
+      dat <- readRDS(fname)
+      rownames(dat) <- sprintf("r%02d", seq_len(nrow(dat)))
+      colnames(dat) <- sprintf("i%02d", seq_len(ncol(dat)))
+      datm <- apply(dat, 3, c)
+      meta <- expand.grid(dimnames(dat)[1:2])
+      result <- data.frame(meta, datm) %>%
+        as_tibble() %>%
+        mutate(irefl = as.numeric(str_remove(Var1, "r")),
+               iobs = as.numeric(str_remove(Var2, "i"))) %>%
+        select(iobs, irefl, everything()) %>%
+        select(-Var1, -Var2)
+      result
+    }
+
+    all_plsr <- plsr_info %>%
+      mutate(data = map(fname, tidy_plsr)) %>%
+      unnest(data) %>%
+      as.data.table()
+
+    all_plsr
+  }, formats = "fst_dt"),
+
+  poster_plsr_summary_dat = {
+
+    setDT(poster_plsr_results)
+
+    var_calibration <- poster_plsr_results[, .(SD = sd(Mean, na.rm = TRUE)), .(
+      plsr_var, atm, aod, h2o, szen, ozen, saz, oaz, snr,
+      calibration, calscale,
+      iobs, irefl
+    )][
+    , .(SD = mean(SD, na.rm = TRUE)),
+      .(plsr_var)
+    ][, source := "calibration"]
+
+    # Variance across atmospheric correction -- not irefl
+    var_isofit <- poster_plsr_results[, .(SD = sd(Mean, na.rm = TRUE)), .(
+      plsr_var, atm, aod, h2o, szen, ozen, saz, oaz, snr,
+      calibration, calscale, calid,
+      iobs
+    )][
+    , .(SD = mean(SD, na.rm = TRUE)),
+      .(plsr_var)
+    ][, source := "isofit"]
+
+    # Variance by atmosphere -- not atm, aod, h2o
+    var_atm <- poster_plsr_results[, .(SD = sd(Mean, na.rm = TRUE)), .(
+      plsr_var, szen, ozen, saz, oaz, snr,
+      calibration, calscale, calid,
+      iobs, irefl
+    )][
+    , .(SD = mean(SD, na.rm = TRUE)),
+      .(plsr_var)
+    ][, source := "atmosphere"]
+
+    # Variance by SNR
+    var_snr <- poster_plsr_results[, .(SD = sd(Mean, na.rm = TRUE)), .(
+      plsr_var, atm, aod, h2o, szen, ozen, saz, oaz,
+      calibration, calscale, calid,
+      iobs, irefl
+    )][
+    , .(SD = mean(SD, na.rm = TRUE)),
+      .(plsr_var)
+    ][, source := "SNR"]
+
+    # Variance by geometry  -- not szen, ozen, saz, oaz
+    var_geom <- poster_plsr_results[, .(SD = sd(Mean, na.rm = TRUE)), .(
+      plsr_var, atm, aod, h2o, snr,
+      calibration, calscale, calid,
+      iobs, irefl
+    )][
+    , .(SD = mean(SD, na.rm = TRUE)),
+      .(plsr_var)
+    ][, source := "geometry"]
+
+    # Variance by algorithm
+    var_algorithm <- poster_plsr_results[, .(SD = mean(SD, na.rm = TRUE)), .(
+      plsr_var
+    )][, source := "algorithm"]
+
+    var_summary <- rbindlist(list(
+      var_calibration, var_isofit, var_atm, var_snr,
+      var_geom, var_algorithm, mutate(true_plsr_var, source = "input")
+    ))
+
+    var_summary
+  },
+  poster_plsr_summary_fig = {
+    summary_dat <- poster_plsr_summary_dat %>%
+      mutate(
+        source = factor(
+          source,
+          c("input", "calibration", "isofit", "algorithm",
+            "atmosphere", "SNR", "geometry"),
+          c("Observations", "Calibration", "Atm. correction", "Algorithm",
+            "Atmosphere", "Signal-noise ratio", "Sun-sensor geometry")
+        ) %>%
+          fct_reorder(SD, .desc = TRUE, .fun = mean) %>%
+          fct_relevel("Observations"),
+        plsr_var = factor_pls(plsr_var)) %>%
+      filter(!is.na(plsr_var))
+
+    plt <- ggplot(summary_dat) +
+      aes(x = source, y = SD) +
+      geom_bar(stat = "identity") +
+      facet_grid(vars(plsr_var), scales = "free") +
+      labs(x = "Variance source", y = "Average standard deviation") +
+      scale_x_discrete(labels = label_wrap_gen(12)) +
+      theme_base() +
+      theme(axis.text.x = element_text(size = rel(0.9)))
+
+    ggsave(file_out(!!path(figdir, "poster-variance-barplot.png")), plt,
+           width = 8, height = 6, units = "in", dpi = 450)
+  },
+
+  true_plsr = {
+    # load input reflectance
+    input_refl_file <- file_in("data/derived/zz-traitanalysis/neon-vegetation.envi")
+    input_refl_r <- brick(input_refl_file)
+    wl <- get_raster_wl(input_refl_r)
+    input_refl <- input_refl_r[]
+    # run PLSR models to get "true" values
+    plsr_result <- map(pls_coef_files, do_plsr, rbrick = input_refl_r)
+    true_plsr <- plsr_result %>%
+      map(drop) %>%
+      map(as_tibble) %>%
+      bind_rows(.id = "fname") %>%
+      group_by(fname) %>%
+      mutate(iobs = row_number()) %>%
+      ungroup() %>%
+      mutate(plsr_var = path_file(fname) %>%
+               path_ext_remove() %>%
+               str_remove("PLS_coefficients_Mode_A_"))
+    true_plsr
+  },
+
+  # get true observed variance; replace this in above figure
+  true_plsr_var = {
+    true_plsr %>%
+      group_by(plsr_var) %>%
+      summarize(SD = sd(Mean, na.rm = TRUE)) %>%
+      ungroup()
+  },
+
+  # calculate biases
+  plsr_bias = target({
+    true_plsr_dt <- as.data.table(true_plsr)
+    setkey(true_plsr_dt, plsr_var, iobs)
+    setkey(poster_plsr_results, plsr_var, iobs)
+    biases <- true_plsr_dt[poster_plsr_results]
+    biases[, bias := i.Mean - Mean]
+    biases
+  }, format = "fst_dt"),
+
+  # plot biases
+  poster_plsr_bias_byatm = {
+    bias_byatm <- plsr_bias[, .(
+      mean_bias = mean(bias, na.rm = TRUE),
+      lo_bias = quantile(bias, 0.025, na.rm = TRUE),
+      hi_bias = quantile(bias, 0.975, na.rm = TRUE)
+    ), .(plsr_var, atm, aod, h2o)]
+
+    plt <- bias_byatm %>%
+      arrange(atm, aod, h2o) %>%
+      mutate(plsr_var = factor_pls(plsr_var),
+             atmosphere = label_atmosphere(atm, aod, h2o) %>%
+               fct_inorder()) %>%
+      filter(!is.na(plsr_var)) %>%
+      ggplot() +
+      aes(x = aod, y = mean_bias,
+          ymin = lo_bias, ymax = hi_bias, color = atm) +
+      geom_pointrange() +
+      geom_hline(yintercept = 0, lty = "dashed") +
+      facet_grid(vars(plsr_var), scales = "free_y") +
+      scale_x_log10() +
+      labs(x = "Aerosol optical depth", y = "Bias (mean and 95% CI)",
+           color = "Atm. profile type") +
+      theme_base() +
+      theme(legend.position = c(0, 1),
+            legend.justification = c(0, 1),
+            legend.background = element_blank())
+    ggsave(file_out(!!path(figdir, "poster-plsr-bias-byatm.png")), plt,
+           width = 7, height = 6, units = "in", dpi = 450)
+  }
 
 )
+
+if (FALSE) {
+
+
+    ggplot(var_summary) +
+      aes(x = source, y = SD) +
+      geom_bar(stat = "identity") +
+      facet_wrap(vars(plsr_var), scales = "free_y") +
+      theme_bw()
+
+    var_summary %>%
+      group_by(plsr_var) %>%
+      mutate(x = -rank(SD)) %>%
+      ggplot() +
+      aes(x = x, y = ) +
+      scale_x_discrete()
+
+    input_var <- all_plsr %>%
+      group_by(plsr_var, iobs) %>%
+      summarize(Mean = mean(Mean, na.rm = TRUE)) %>%
+      ungroup() %>%
+      mutate(variance_source = "input")
+
+    # Variance from calibration
+    cal_var <- all_plsr %>%
+      filter(calibration != "NONE") %>%
+      group_by(plsr_var, calscale, calid) %>%
+      summarize(Mean = mean(Mean, na.rm = TRUE)) %>%
+      ungroup() %>%
+      mutate(variance_source = "calibration")
+
+    # Variance from atmospheric correction
+    isofit_var <- all_plsr %>%
+      group_by(plsr_var, irefl) %>%
+      summarize(Mean = mean(Mean, na.rm = TRUE)) %>%
+      ungroup() %>%
+      mutate(variance_source = "atmospheric correction")
+
+    cal_var %>%
+      filter(calscale == 32) %>%
+      bind_rows(input_var) %>%
+      ggplot() +
+      aes(x = variance_source, y = Mean) +
+      geom_boxplot() +
+      facet_wrap(vars(plsr_var), scales = "free_y")
+
+
+    bias_
+
+}
