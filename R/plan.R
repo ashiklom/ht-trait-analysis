@@ -7,6 +7,7 @@ pls_tags <- str_extract(pls_coef_files, "(?<=_A_).*(?=\\.csv)")
 resultdir <- path("data", "derived", "ht-output")
 reflfiles <- dir_ls(resultdir, regexp = "estimated-reflectance(-[[:digit:]]+)?$", recurse = TRUE)
 uncfiles <- dir_ls(resultdir, regexp = "posterior-uncertainty(-[[:digit:]]+)?$", recurse = TRUE)
+stopifnot(all(path_dir(reflfiles) == path_dir(uncfiles)))
 radfiles <- dir_ls(resultdir, regexp = "toa-radiance(-[[:digit:]]+)?$", recurse = TRUE)
 
 figdir <- dir_create("figures")
@@ -39,7 +40,7 @@ pls_refl_grid <- crossing(
 the_plan <- drake_plan(
   # Propagate uncertainty through outputs
   propagated_refl = target(
-    reflectance_uncertainty(reflfiles, uncfiles, str_replace(
+    reflectance_uncertainty_fast(reflfiles, uncfiles, str_replace(
       reflfiles, "estimated-reflectance", "uncertain-reflectance"
     ) %>% str_c(".envi")),
     format = "file",
@@ -505,6 +506,8 @@ the_plan <- drake_plan(
 )
 
 if (FALSE) {
+
+  drake::drake_cache()$unlock()
 
 
     ggplot(var_summary) +
