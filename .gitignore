@@ -6,5 +6,7 @@ tmp/
 /data/derived/
 /.drake/
 
+/_targets/
+
 .zz*
 /figures/
