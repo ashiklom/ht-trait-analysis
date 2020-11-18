@@ -23,8 +23,8 @@ conflict_prefer("between", "dplyr")
 conflict_prefer("pdf", "distributions3")
 conflict_prefer("quantile", "stats")
 
-tar_option_set(format = "qs")
-options(clustermq.scheduler = "multicore")
+tar_option_set(format = "qs", error = "continue")
+options(clustermq.scheduler = "multiprocess")
 future::plan("multicore")
 
 resultdir <- path("data", "derived", "ht-output")
@@ -44,6 +44,10 @@ tar_pipeline(
     dir_ls(resultdir, regexp = "posterior-uncertainty(-[[:digit:]]+)?$",
            recurse = TRUE)
   ),
+  tar_target(
+    check_refl_unc_paths,
+    stopifnot(all(path_dir(refl_paths) == path_dir(unc_paths)))
+  ),
   tar_target(reflfiles, refl_paths, format = "file", pattern = map(refl_paths),
              deployment = "main"),
   tar_target(uncfiles, unc_paths, format = "file", pattern = map(unc_paths),
@@ -52,7 +56,7 @@ tar_pipeline(
     propagated_refl,
     reflectance_uncertainty_fast(reflfiles, uncfiles),
     pattern = map(reflfiles, uncfiles),
-    iteration = "list"
+    format = "file"
   ),
   tar_target(pls_coef_paths, dir_ls(
     "data/plsr-coefficients/singh-ea-supplement",
@@ -65,7 +69,6 @@ tar_pipeline(
   tar_target(
     plsr_result,
     spec_plsr(propagated_refl, plsr_data),
-    pattern = cross(propagated_refl, plsr_data),
-    iteration = "list"
+    pattern = cross(propagated_refl, plsr_data)
   )
 )

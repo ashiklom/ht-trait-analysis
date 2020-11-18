@@ -135,8 +135,8 @@ spec_plsr <- function(specdata, plsr_data) {
   )
 
   # Observations, samples, wavelengths
-  bdat <- specdata
-  bwl <- attr(specdata, "wavelength")
+  bdat <- qs::qread(specdata)
+  bwl <- attr(bdat, "wavelength")
 
   # Define dimensions, to make things clearer
   nobs <- nrow(bdat)
@@ -170,16 +170,17 @@ spec_plsr <- function(specdata, plsr_data) {
   pls_est_lo <- apply(pls_est, c(2, 3), quantile, 0.025, na.rm = TRUE)
   pls_est_hi <- apply(pls_est, c(2, 3), quantile, 0.975, na.rm = TRUE)
 
-  out_array <- array(NA_real_, c(nobs, nsamp, 6))
+  # NOTE: Add extra dimension here so vctrs::vec_c will combine them neatly.
+  out_array <- array(NA_real_, c(1, nobs, nsamp, 6))
   dimnames(out_array) <- list(NULL, NULL, c(
     "Mean", "SD", "Min", "Max", "q025", "q975"
   ))
-  out_array[,,"Mean"] <- pls_est_means
-  out_array[,,"SD"] <- pls_est_sd
-  out_array[,,"Min"] <- pls_est_min
-  out_array[,,"Max"] <- pls_est_max
-  out_array[,,"q025"] <- pls_est_lo
-  out_array[,,"q975"] <- pls_est_hi
+  out_array[1,,"Mean"] <- pls_est_means
+  out_array[1,,"SD"] <- pls_est_sd
+  out_array[1,,"Min"] <- pls_est_min
+  out_array[1,,"Max"] <- pls_est_max
+  out_array[1,,"q025"] <- pls_est_lo
+  out_array[1,,"q975"] <- pls_est_hi
 
   out_array
 }

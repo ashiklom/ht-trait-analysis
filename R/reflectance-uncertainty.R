@@ -46,8 +46,19 @@ reflectance_uncertainty_fast <- function(reflfile, uncfile, n = 20) {
   refl <- refl_r$spc
   unc <- caTools::read.ENVI(uncfile, paste0(uncfile, ".hdr"))[1, , seq_along(rwl)]
 
-  stopifnot(length(dim(refl)) == 2)
-  stopifnot(all(dim(unc) == dim(refl)))
+  tryCatch(
+    stopifnot(
+      length(dim(refl)) == 2,
+      all(dim(unc) == dim(refl))
+    ),
+    error = function(e) {
+      stop("Encountered an error:",
+           "\nRefl file: ", reflfile,
+           "\nUnc file: ", uncfile,
+           "\nError:\n",
+           conditionMessage(e))
+    }
+  )
   nobs <- nrow(refl)
   nwl <- ncol(refl)
   zvals <- qnorm(seq(0.025, 0.975, length.out = n))
@@ -60,7 +71,14 @@ reflectance_uncertainty_fast <- function(reflfile, uncfile, n = 20) {
   # Observations, samples, wavelengths
   result <- aperm(rsamp, c(2, 1, 3))
   attr(result, "wavelength") <- rwl
-  result
+
+  outfile <- str_replace(
+    reflfile,
+    "estimated-reflectance",
+    "propagated-uncertainty"
+  ) %>% str_c(".qs")
+  qs::qsave(result, outfile)
+  outfile
 }
 
 # R version
