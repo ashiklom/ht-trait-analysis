@@ -172,15 +172,15 @@ spec_plsr <- function(specdata, plsr_data) {
 
   # NOTE: Add extra dimension here so vctrs::vec_c will combine them neatly.
   out_array <- array(NA_real_, c(1, nobs, nsamp, 6))
-  dimnames(out_array) <- list(NULL, NULL, c(
+  dimnames(out_array) <- list(NULL, NULL, NULL, c(
     "Mean", "SD", "Min", "Max", "q025", "q975"
   ))
-  out_array[1,,"Mean"] <- pls_est_means
-  out_array[1,,"SD"] <- pls_est_sd
-  out_array[1,,"Min"] <- pls_est_min
-  out_array[1,,"Max"] <- pls_est_max
-  out_array[1,,"q025"] <- pls_est_lo
-  out_array[1,,"q975"] <- pls_est_hi
+  out_array[1,,,"Mean"] <- pls_est_means
+  out_array[1,,,"SD"] <- pls_est_sd
+  out_array[1,,,"Min"] <- pls_est_min
+  out_array[1,,,"Max"] <- pls_est_max
+  out_array[1,,,"q025"] <- pls_est_lo
+  out_array[1,,,"q975"] <- pls_est_hi
 
   out_array
 }

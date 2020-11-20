@@ -23,7 +23,7 @@ conflict_prefer("between", "dplyr")
 conflict_prefer("pdf", "distributions3")
 conflict_prefer("quantile", "stats")
 
-tar_option_set(format = "qs", error = "continue")
+tar_option_set(format = "qs")
 options(clustermq.scheduler = "multiprocess")
 future::plan("multicore")
 
@@ -56,7 +56,8 @@ tar_pipeline(
     propagated_refl,
     reflectance_uncertainty_fast(reflfiles, uncfiles),
     pattern = map(reflfiles, uncfiles),
-    format = "file"
+    format = "file",
+    error = "continue"
   ),
   tar_target(pls_coef_paths, dir_ls(
     "data/plsr-coefficients/singh-ea-supplement",
@@ -69,6 +70,7 @@ tar_pipeline(
   tar_target(
     plsr_result,
     spec_plsr(propagated_refl, plsr_data),
-    pattern = cross(propagated_refl, plsr_data)
+    pattern = cross(propagated_refl, plsr_data),
+    error = "workspace"
   )
 )
