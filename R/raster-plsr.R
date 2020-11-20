@@ -60,7 +60,7 @@ raster_plsr <- function(rasterfile, outfile, plsr_coef_file) {
   invisible(outfile)
 }
 
-do_plsr <- function(rbrick, plsr_coef_file) {
+do_plsr <- function(plsr_coef_file, bwl, bdat) {
   plsr_data <- read.csv(plsr_coef_file)
   pls_wl <- names(plsr_data) %>%
     str_subset("WVL_") %>%
@@ -75,9 +75,6 @@ do_plsr <- function(rbrick, plsr_coef_file) {
     ncol(pls_slope) == length(pls_int),
     nrow(pls_slope) == length(pls_wl)
   )
-  bwl <- get_raster_wl(rbrick)
-
-  bdat <- rbrick[]
   # Row order is b[1,1], b[1,2], b[1,3]...b[2,1], b[2,2], b[2,3]...
   # I.e., Reflectance samples are kept together
 
@@ -115,7 +112,7 @@ do_plsr <- function(rbrick, plsr_coef_file) {
   out_array
 }
 
-spec_plsr <- function(specdata, plsr_data) {
+spec_plsr <- function(plsr_data, bdat, bwl) {
   pls_wl <- names(plsr_data) %>%
     str_subset("WVL_") %>%
     str_remove("WVL_") %>%
@@ -135,8 +132,12 @@ spec_plsr <- function(specdata, plsr_data) {
   )
 
   # Observations, samples, wavelengths
-  bdat <- qs::qread(specdata)
-  bwl <- attr(bdat, "wavelength")
+  ## bdat <- qs::qread(specdata)
+  ## bwl <- attr(bdat, "wavelength")
+
+  if (length(dim(bdat)) < 3) {
+    bdat <- array(bdat, c(nrow(bdat), 1, ncol(bdat)))
+  }
 
   # Define dimensions, to make things clearer
   nobs <- nrow(bdat)
