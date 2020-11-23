@@ -140,11 +140,18 @@ plsr_uncertainty_figure <- function(plsr_uncertainties, true_plsr) {
   input_var <- true_plsr[, .(SD = sd(Mean, na.rm = TRUE)), variable][
     , source := "input"
   ]
+  input_var[, variable := factor(variable, c(
+    "M_area", "pct_N", "pct_C", "pct_Cellulose",
+    "pct_ADL", "pct_ADF", "del15N"
+  ), c(
+    "LMA", "%N", "%C", "%Cellulose",
+    "%ADL", "%ADF", "d15N"
+  ))]
 
-  plotdat <- rbind(plsr_uncertainties, input_var)
+  plotdat <- plsr_uncertainties #rbind(plsr_uncertainties, input_var)
   plotdat[, relsd := SD / sum(SD), variable]
   plotdat[, source := fct_reorder(source, relsd, .desc = TRUE)]
-  plotdat[, source := fct_relevel(source, "input")]
+  ## plotdat[, source := fct_relevel(source, "input")]
   # TODO: Better x-axis labels (source)
   plotdat[, variable := factor(variable, c(
     "M_area", "pct_N", "pct_C", "pct_Cellulose",
@@ -157,11 +164,20 @@ plsr_uncertainty_figure <- function(plsr_uncertainties, true_plsr) {
     aes(x = source, y = SD) +
   # TODO: Input variance as horizontal line
     geom_col() +
+    geom_hline(aes(yintercept = SD, linetype = "Input variance"),
+               data = input_var,
+               color = "red") +
     facet_wrap(vars(variable), scales = "free_y") +
+    scale_linetype_manual(values = c("Input variance" = "dashed")) +
+    labs(x = "Uncertainty source", y = "Standard deviation",
+         linetype = "") +
     theme_bw() +
-    labs(x = "Uncertainty source", y = "Standard deviation")
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0.95),
+          legend.position = c(0.7, 0),
+          legend.justification = c(1, 0),
+          legend.background = element_blank())
 
   figfile <- path(figdir, "all-plsr-uncertainty-barplot.png")
-  ggsave(figfile, plt, width = 7, height = 7, units = "in", dpi = 300)
+  ggsave(figfile, plt, width = 6, height = 6, units = "in", dpi = 300)
   invisible(figfile)
 }

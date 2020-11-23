@@ -16,19 +16,19 @@ aod_uncertainty_example <- function(example_spec_dt, input_refl) {
   plt <- ggplot(plotdat) +
     aes(x = wavelength, y = value, group = fname, color = aod) +
     geom_line() +
-    geom_line(aes(x = wl, y = value), data = input_sub, inherit.aes = FALSE,
+    geom_line(aes(x = wl, y = value, linetype = "Input"), data = input_sub, inherit.aes = FALSE,
               color = "red", size = 1) +
     scale_color_viridis_c() +
     theme_bw() +
     labs(x = "Wavelength (nm)", y = "Reflectance [0, 1]",
-         color = "AOD")
+         color = "AOD", linetype = "")
 
   figfile <- path(figdir, "aod-reflectance.png")
-  ggsave(figfile, plt, width = 7, height = 4, units = "in", dpi = 300)
+  ggsave(figfile, plt, width = 5, height = 3, units = "in", dpi = 300)
   invisible(figfile)
 }
 
-aod_uncertainty_plsr_example <- function(raw_plsr_results, true_plsr) {
+aod_uncertainty_plsr_example_data <- function(raw_plsr_results, true_plsr) {
   plsr_sub <- raw_plsr_results[
     iobs == 1 & irefl %in% 10:11,
     lapply(.SD, mean),
@@ -46,29 +46,45 @@ aod_uncertainty_plsr_example <- function(raw_plsr_results, true_plsr) {
 
   true_plsr_sub <- true_plsr[iobs == 1 & variable == "pct_N"]
 
+  list(plsr_n = plsr_n, true_plsr_sub = true_plsr_sub)
+}
+
+aod_uncertainty_plsr_example_figure <- function(datalist) {
+  plsr_n <- datalist[["plsr_n"]]
+  true_plsr_sub <- datalist[["true_plsr_sub"]]
+
   plt <- ggplot(plsr_n) +
     aes(x = aod, y = Mean, color = aod) +
     geom_jitter() +
     geom_hline(yintercept = true_plsr_sub$Mean,
-               linetype = "dashed") +
+               linetype = "dashed", color = "red") +
     scale_color_viridis_c() +
+    scale_x_sqrt() +
     labs(x = "AOD", y = "Leaf %N estimate", color = "AOD") +
-    theme_bw()
+    theme_bw() +
+    theme(legend.position = c(0, 1),
+          legend.justification = c(0, 1),
+          legend.background = element_blank())
 
   figfile <- path(figdir, "aod-plsr-example.png")
-  ggsave(figfile, plt, width = 7, height = 6, units = "in", dpi = 300)
+  ggsave(figfile, plt, width = 4, height = 4, units = "in", dpi = 300)
 
   plt2 <- ggplot(plsr_n) +
     aes(x = aod, y = Mean, color = aod, ymin = q025, ymax = q975) +
     geom_pointrange(position = position_jitter()) +
     geom_hline(yintercept = true_plsr_sub$Mean,
-               linetype = "dashed") +
+               linetype = "dashed", color = "red") +
     scale_color_viridis_c() +
+    scale_x_sqrt() +
     labs(x = "AOD", y = "Leaf %N estimate", color = "AOD") +
-    theme_bw()
+    theme_bw() +
+    guides(color = FALSE)
+    ## theme(legend.position = c(0, 1),
+    ##       legend.justification = c(0, 1),
+    ##       legend.background = element_blank())
 
   figfile2 <- path(figdir, "aod-plsr-example-errors.png")
-  ggsave(figfile2, plt2, width = 7, height = 6, units = "in", dpi = 300)
+  ggsave(figfile2, plt2, width = 4, height = 4, units = "in", dpi = 300)
 
   invisible(figfile)
 }

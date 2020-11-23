@@ -71,8 +71,12 @@ tar_pipeline(
   # TODO: Retrieval uncertainty (range) from single spectrum (reflectance)
   # PLSR uncertainty from example spectrum
   tar_target(
+    aod_plsr_fig_data,
+    aod_uncertainty_plsr_example_data(raw_plsr_results, true_plsr)
+  ),
+  tar_target(
     aod_plsr_fig,
-    aod_uncertainty_plsr_example(raw_plsr_results, true_plsr),
+    aod_uncertainty_plsr_example_figure(aod_plsr_fig_data),
     format = "file"
   ),
   # PLSR uncertainties across all spectra
@@ -81,6 +85,25 @@ tar_pipeline(
     plsr_uncertainty_fig,
     plsr_uncertainty_figure(plsr_uncertainties, true_plsr),
     format = "file"
-  )
+  ),
+  tar_target(input_refl_fig, {
+    input_summary <- input_refl[, .(
+      lo = min(value),
+      hi = max(value)
+    ), wl]
+    iselected <- input_refl[between(wl, 998, 1003)][order(value)][seq.int(50, 450, 50)]
+    input_sub <- input_refl[iobs %in% iselected$iobs]
+    input_sub[screen_wl(wl), value := NA_real_]
+    input_summary[screen_wl(wl), `:=`(lo = NA_real_, hi = NA_real_)]
+    plt <- ggplot(input_summary) +
+      aes(x = wl) +
+      geom_ribbon(aes(ymin = lo, ymax = hi), fill = "gray70") +
+      geom_line(aes(y = value, group = iobs), data = input_sub) +
+      labs(x = "Wavelength (nm)", y = "Reflectance [0,1]") +
+      theme_bw()
+    figfile <- path(figdir, "input-reflectance.png")
+    ggsave(figfile, plt, width = 5, height = 3.5, units = "in", dpi = 300)
+    figfile
+  }, format = "file")
   # TODO: PLSR trends with AOD
 )
