@@ -33,6 +33,7 @@ resultdir <- path("data", "derived", "ht-output")
 dir_ls("./R/", regexp = "\\.R$") %>%
   str_subset("plan[.]R", negate = TRUE) %>%
   walk(source)
+figdir <- dir_create(path("figures", "agu"))
 
 tar_option_set(format = "qs")
 
@@ -44,8 +45,42 @@ tar_pipeline(
   tar_target(plsr_info, as.data.table(parse_ht_directory(plsr_files))),
   tar_target(raw_plsr_results, rbindlist(lapply(plsr_files, read_plsr_file)),
              format = "fst_dt"),
+  tar_target(input_refl_file, "data/derived/zz-traitanalysis/neon-vegetation.envi",
+             format = "file"),
+  tar_target(input_refl, {
+    indat <- hyperSpec::read.ENVI(input_refl_file,
+                                  paste0(input_refl_file, ".hdr"))
+    wl <- hyperSpec::wl(indat)
+    spec <- as.data.table(t(indat$spc))
+    spec[, wl := wl]
+    spec_long <- melt(spec, id.vars = "wl")
+    spec_long[, iobs := as.integer(str_remove(variable, "V"))]
+    spec_long[, variable := NULL]
+    spec_long[, .(iobs, wl, value)]
+  }, format = "fst_dt"),
+  tar_target(true_plsr, do_true_plsr(input_refl_file), format = "fst_dt"),
+  tar_target(example_spec_1, example_spec(1)),
+  tar_target(example_spec_dt, tidy_example_spec(example_spec_1),
+             format = "fst_dt"),
+  # AOD uncertainty from single spectrum (reflectance)
   tar_target(
-    true_plsr,
-    do_true_plsr("data/derived/zz-traitanalysis/neon-vegetation.envi")
+    aod_reflectance_fig,
+    aod_uncertainty_example(example_spec_dt, input_refl),
+    format = "file"
+  ),
+  # TODO: Retrieval uncertainty (range) from single spectrum (reflectance)
+  # PLSR uncertainty from example spectrum
+  tar_target(
+    aod_plsr_fig,
+    aod_uncertainty_plsr_example(raw_plsr_results, true_plsr),
+    format = "file"
+  ),
+  # PLSR uncertainties across all spectra
+  tar_target(plsr_uncertainties, qs::qread("data/derived/plsr-variance.qs")),
+  tar_target(
+    plsr_uncertainty_fig,
+    plsr_uncertainty_figure(plsr_uncertainties, true_plsr),
+    format = "file"
   )
+  # TODO: PLSR trends with AOD
 )
