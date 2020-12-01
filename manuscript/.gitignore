@@ -9,3 +9,5 @@ tmp/
 *.fdb_latexmk
 *.fls
 *.pdf
+
+.auctex-auto/

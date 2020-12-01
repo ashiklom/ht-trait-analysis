@@ -170,6 +170,37 @@
 %%% Suggested section heads:
 \section{Introduction}
 
+Plant functional traits are measurable plant characteristics that are closely related to individual fitness and ecosystem function~\cite{violle2007let}.
+Specifically, some traits (``effect traits'') directly affect ecosystem processes and are therefore valuable indicators of an ecosystem's current status, while others (``response traits'') are useful as predictors of how individuals and ecosystems will respond to future changes~\cite{lavorel2002predicting, funk2017revisiting}.
+Traits provide more granular information about the impacts of environmental changes than species identity alone~\cite{cadotte2017should}.
+% Plant traits are relevant to evaluating the functional diversity of an ecosystem~\cite{cadotte_2011_beyond_species, bouallala2020vegetation, bilton2010intraspecific, diaz2013functional, flynn2011functional, jager2015soil}.
+Moreover, plant traits often serve as parameters in land surface and dynamic vegetation models~\cite{bonan_2012_reconciling, feng2013scale, harper2016improved, shiklomanov2020structure}.
+Trait data are therefore valuable to multiple ecological subdisciplines.
+
+Our best current understanding of plant functional traits comes from regional- to global scale trait databases such as TRY~\cite{kattge2020try} and BIEN~\cite{maitner2018bien}.
+Although databases of in-situ trait measurements are larger and more open than ever before~\cite{kattge2020try}, large spatial and phylogenetic gaps and sampling biases in these datasets continue to pose a challenge in trait ecology~\cite{cornwell_2019_what}.
+Fortunately, multiple decades of research have demonstrated that plant traits can be successfully estimated from remote measurements of canopy reflectance~\cite{cavender-bares2020remote, verrelst2019quantifying}.
+Compared to field measurements, airborne and satellite measurements cover larger areas to reduce sampling biases, particularly in remote and rugged landscapes~\cite{jetz_2016_monitoring, marvin2014amazonian}.
+
+The advantages of remote trait mapping come at a cost of much larger uncertainties.
+Uncertainties in remote trait estimation originate from multiple sources.
+First, the relationship between canopy reflectance and leaf traits is usually at least partially empirical and therefore uncertain.
+Second, light leaving a canopy interacts significantly with the atmosphere before reaching the airborne or spaceborne instrument;
+therefore, any trait retrieval workflow must first remove these atmospheric effects (i.e., ``atmospheric correction''), a process that is also highly uncertain~\cite{thompson2020quantifying}.
+Third, the airborne or spaceborne instrument is never perfect, but rather is subject to measurement constraints such as a finite signal-to-noise ratio and imperfect calibration; this introduces additional uncertainty.
+
+The NASA Surface Biology and Geology (SBG) designated observable—a planned global satellite imaging spectroscopy mission—therefore represents a significant new opportunity for studying the spatial patterns and temporal dynamics of plant traits worldwide.
+An evaluation of the performance and trade-offs of SBG for trait estimation is therefore essential to the design of an SBG plant trait product.
+In particular, because of the limited spatial domain of existing imaging spectroscopy data, trait retrieval algorithms have typically been developed and evaluated only for specific sites and under specific measurement conditions (e.g., instrument characteristics, atmospheric conditions, sun-sensor geometries), and the performance of these same algorithms at other sites and measurement conditions has not been investigated.
+
+This manuscript is motivated by the following research questions:
+(1) How large are uncertainties in trait retrievals from imaging spectroscopy?
+(2) What are the largest sources of uncertainties in these retrievals?
+To address these questions, we performed a simulation study that proceeded as follows:
+First, starting from a known surface reflectance image, we used an atmospheric radiative transfer model to simulate satellite observations of radiance over a wide range of mission architectures and atmospheric conditions.
+Second, for each simulated radiance measurement, we performed atmospheric correction to estimate surface reflectance (with uncertainty).
+Finally, for each of these estimated reflectance spectra, we estimated plant trait values using existing models and evaluated the sources of variability and uncertainty across the simulations.
+
 \section{Materials and Methods}\label{sec:methods}
 
 We used optimal estimation as implemented in the ``Isofit'' Python library~\cite{thompson2019optimal,thompson2018optimal}.
