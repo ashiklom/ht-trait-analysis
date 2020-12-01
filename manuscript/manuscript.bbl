@@ -1,0 +1,66 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Thompson%
+\ \protect \BOthers {.}}{%
+Thompson%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+thompson2019optimal}
+\APACinsertmetastar {%
+thompson2019optimal}%
+\begin{APACrefauthors}%
+Thompson, D\BPBI R.%
+, Babu, K\BPBI N.%
+, Braverman, A\BPBI J.%
+, Eastwood, M\BPBI L.%
+, Green, R\BPBI O.%
+, Hobbs, J\BPBI M.%
+\BDBL {}Turmon, M\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{{\APACmonth{10}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Optimal Estimation of Spectral Surface Reflectance in
+  Challenging Atmospheres} {Optimal estimation of spectral surface reflectance
+  in challenging atmospheres}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Remote Sensing of Environment}{232}{}{111258}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.rse.2019.111258} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Thompson%
+\ \protect \BOthers {.}}{%
+Thompson%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+thompson2018optimal}
+\APACinsertmetastar {%
+thompson2018optimal}%
+\begin{APACrefauthors}%
+Thompson, D\BPBI R.%
+, Natraj, V.%
+, Green, R\BPBI O.%
+, Helmlinger, M\BPBI C.%
+, Gao, B\BHBI C.%
+\BCBL {}\ \BBA {} Eastwood, M\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{{\APACmonth{10}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Optimal Estimation for Imaging Spectrometer Atmospheric
+  Correction} {Optimal estimation for imaging spectrometer atmospheric
+  correction}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Remote Sensing of Environment}{216}{}{355--373}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.rse.2018.07.003} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}
