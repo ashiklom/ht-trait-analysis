@@ -97,7 +97,7 @@
 % Example: \authors{A. B. Author\affil{1}\thanks{Current address, Antartica}, B. C. Author\affil{2,3}, and D. E.
 % Author\affil{3,4}\thanks{Also funded by Monsanto.}}
 
-\authors{Alexey N. Shiklomanov\affil{1}, Shawn Serbin\affil{2}, David R. Thompson\affil{3}, Philip G. Broderick\affil{3}, and Benjamin Poulter\affil{1}}
+\authors{Alexey N. Shiklomanov\affil{1}, Shawn Serbin\affil{2}, David R. Thompson\affil{3}, Philip G. Brodrick\affil{3}, and Benjamin Poulter\affil{1}}
 
 \affiliation{1}{NASA Goddard Space Flight Center, Greenbelt, MD, USA}
 \affiliation{2}{Brookhaven National Laboratory, Stony Brook, NY, USA}
@@ -205,12 +205,14 @@ Finally, for each of these estimated reflectance spectra, we estimated plant tra
 
 \subsection{Input data}\label{subsec:input-data}
 
-We obtained atmospherically corrected surface reflectance imaging spectroscopy data from a National Ecological Observatory (NEON) Airborne Observing Platform (AOP) scene in the Upper East River basing of Colorado, USA (39.0$^{\circ}$ N, 106.9$^{\circ}$ W) as processed by \citeA{chadwick2020integrating} and available on Google Earth Engine under the collection %\texttt{users/pgbrodrick/SFA/collections/ciacorn_priority}.
+\emergencystretch 2em  % Fix problematic long texttt
+We obtained atmospherically corrected surface reflectance imaging spectroscopy data from a National Ecological Observatory (NEON) Airborne Observing Platform (AOP) scene in the Upper East River basing of Colorado, USA (39.0$^{\circ}$ N, 106.9$^{\circ}$ W) as processed by \citeA{chadwick2020integrating} and available on Google Earth Engine under the collection \texttt{users/pgbrodrick/SFA/collections/ciacorn\_priority}.
 A complete description of the data and processing methods are provided in \citeA{chadwick2020integrating}.
 Briefly, the scene is a mosaic from several NEON AOP flights performed in summer 2018.
 NEON AOP data have a spatial resolution of XXX m and an average spectral resolution of XXX nm over the range XXX nm to XXX nm. %TODO: Fill out these values.
 The atmospheric correction routine was a custom application of the Atmospheric CORrection Now (ACORN‐6LX, Imspec LLC, Glendale) software package accounting for fine-scale variation in topography and sun-sensor geometry.
 
+\fussy  % Return to defaults
 We used Google Earth Engine to manually select and extract 500 vegetation pixels from this scene (Figure~\ref{fig:sitemap}).
 The pixels exhibit substantial variability in brightness and spectral character:
 green reflectance (550 nm) ranges from XXX to XXX;
@@ -255,9 +257,10 @@ Assuming that the entire reflectance process is Lambertian, and accounting for t
 \end{equation}
 \end{linenomath*}
 
-
-To simulate top-of-atmosphere radiance, we used a hybrid approach recently developed by Broderick et al.~\emph{in review} (sRTMnet)that combines an atmospheric radiative transfer model (RTM) based on a computationally efficient successive orders of scattering approximation~\cite<Second Simulation of a Satellite Signal in the Solar Spectrum-Vector, 6SV, version 2.1,>{kotchenova2006validation} with a neural network-based emulator of a more advanced RTM~\cite<MODTRAN,>{berk2017validation}.
-
+The atmospheric optical properties ($\rho_{a}$, $t$, and $s$) all vary as a function of atmospheric composition and sun-sensor geometry.
+To estimate these quantities, we used a hybrid approach (sRTMnet, Brodrick et al.~\emph{in review}) that combines
+an atmospheric radiative transfer model (RTM) based on a computationally efficient successive orders of scattering approximation~\cite<Second Simulation of a Satellite Signal in the Solar Spectrum-Vector, 6SV, version 2.1,>{kotchenova2006validation}
+with a neural network-based emulator of a more advanced RTM~\cite<MODTRAN,>{berk2017validation}.
 
 
 
@@ -459,11 +462,13 @@ We quantified the contributions of each uncertainty source to both estimates of 
 
 
 \acknowledgments
+\emergencystretch 2em
 The code and data for performing this analysis is permanently archived at XXXXX. % TODO
 Both Isofit and the Hypertrace wrapper script are publicly developed on GitHub at https://github.com/isofit/isofit.
 This work was supported by the NASA Surface Biology and Geology (SBG) mission study.
 The authors declare no conflicts of interest.
 
+\fussy
 
 %% ------------------------------------------------------------------------ %%
 %% References and Citations
