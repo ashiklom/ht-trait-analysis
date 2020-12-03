@@ -507,6 +507,41 @@ Shiklomanov, A\BPBI N.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Singh%
+, Serbin%
+, McNeil%
+, Kingdon%
+\BCBL {}\ \BBA {} Townsend%
+}{%
+Singh%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+singh2015imaging}
+\APACinsertmetastar {%
+singh2015imaging}%
+\begin{APACrefauthors}%
+Singh, A.%
+, Serbin, S\BPBI P.%
+, McNeil, B\BPBI E.%
+, Kingdon, C\BPBI C.%
+\BCBL {}\ \BBA {} Townsend, P\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{{\APACmonth{12}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Imaging Spectroscopy Algorithms for Mapping Canopy
+  Foliar Chemical and Morphological Traits and Their Uncertainties} {Imaging
+  spectroscopy algorithms for mapping canopy foliar chemical and morphological
+  traits and their uncertainties}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Ecological Applications}{25}{8}{2180--2197}.
+\newblock
+\begin{APACrefDOI} \doi{10.1890/14-2098.1} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Thompson%
 \ \protect \BOthers {.}}{%
 Thompson%
