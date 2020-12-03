@@ -262,9 +262,58 @@ To estimate these quantities, we used a hybrid approach (sRTMnet, Brodrick et al
 an atmospheric radiative transfer model (RTM) based on a computationally efficient successive orders of scattering approximation~\cite<Second Simulation of a Satellite Signal in the Solar Spectrum-Vector, 6SV, version 2.1,>{kotchenova2006validation}
 with a neural network-based emulator of a more advanced RTM~\cite<MODTRAN,>{berk2017validation}.
 
+In our experiment, we calculated these values over a factorial combination of atmospheric conditions, sun-sensor geometries, and additional mission characteristics (Table~\ref{tab:combinations}).
+For atmospheric conditions and surface elevation, we considered ten combinations identified as representative of global conditions (REF).
+These combinations included
+aerosol optical depth at 550 nm (AOD) ranging from 0.09 to 0.802,
+water vapor content ranging from 0.543 to 4.323 g cm$^{-2}$,
+surface elevation ranging from 77 to 3571 m above sea level,
+and two types of atmospheric profiles (REF): tropical and midlatitude summer (Table~\ref{tab:atmospheres}).
+For sun-sensor geometries, we considered a factorial combination of observation dates and times (which, combined with observation location, determine the position of the sun), sensor zenith angle, and sensor relative (to the sun's position) azimuth angle.
 
+\begin{table}
+\caption{\label{tab:atmospheres} Globally-representative atmospheres used in this analysis.}
+\centering
+\begin{tabular}{lllll}
+\hline
+  Global relative abundance (\%)  & Surface elevation (m) & Aerosol optical depth & Water vapor (g cm$^{-2}$) & Profile type  \\
+  \hline
+  34.0 & 109 & 0.090 & 1.190 & Midlatitude summer \\
+  13.8 & 105 & 0.123 & 2.716 & Midlatitude summer \\
+  12.6 & 77 & 0.132 & 2.889 & Tropical \\
+  9.1 & 1174 & 0.100 & 1.116 & Midlatitude summer \\
+  8.7 & 263 & 0.350 & 1.748 & Midlatitude summer \\
+  8.7 & 88 & 0.168 & 4.323 & Tropical \\
+  5.5 & 233 & 0.445 & 2.936 & Tropical \\
+  4.5 & 911 & 0.135 & 1.853 & Tropical \\
+  2.4 & 227 & 0.802 & 2.611 & Tropical \\
+  0.7 & 3571 & 0.138 & 0.543 & Midlatitude summer \\
+\hline
+\end{tabular}
+\end{table}
 
-For a given combination of surface elevation and atmospheric conditions (aerosol optical depth and water vapor content), we simulated
+\begin{table}
+\caption{\label{tab:combinations} Factorial combination of inputs}
+\centering
+\begin{tabular}{p{0.2\linewidth}lp{0.4\linewidth}p{0.3\linewidth}}
+  \hline
+  Variable & Size & Values & Comments \\
+  \hline
+  Atmosphere & 10 & \emph{See Table~\ref{tab:atmospheres}} & \\ 
+  \hline
+  Constellation inter-calibration scale & 3 & 0, 16, 32 & & \\
+  Constellation atmospheric noise (\%) & 4 & 0, 1, 5, 10 & & \\
+  Constellation angular noise (\%) & 4 & 0, 1, 5, 10 & & \\
+  \hline
+  Local time (24H) & 10 & 9:30, 10:00, 10:15, 10:30, 10:45, 11, 12, 13:30, 15:00 & Spaced over the day, with denser sampling around typical ``A-train'' satellite overpass around 10:30AM \\
+  Date & 7 & March 20, May 20, June 20, July 20, August 20, September 22, December 21 & Northern hemisphere equinoxes and solstices, as well as denser sampling in summer (when traits are typically mapped) \\
+  Sensor zenith (degrees) & 6 & 0, 12.5, 25, 37.5, 50, 75  & \\
+  Sensor relative azimuth (degrees) & 5 & 0, 30, 60, 90, 180 & \\
+  \hline
+  Total grid size & \multicolumn{3}{l}{21,000} & & \\
+  \hline
+\end{tabular}
+\end{table}
 
 \subsubsection{Atmospheric correction via optimal estimation}\label{subsubsec:isofit}
 
@@ -273,9 +322,16 @@ As the underlying atmospheric RTM, we used the same hybrid sRTMnet approach as d
 
 \subsubsection{Estimating plant functional traits}\label{subsubsec:traits}
 
+Algorithms from \citeA{singh2015imaging}.
+Algorithms from \citeA{chadwick2020integrating}.
+
 \subsection{Analysis}\label{subsec:analysis}
 
 We quantified the contributions of each uncertainty source to both estimates of surface reflectance and the final trait estimates.
+Partitioning uncertainty.
+
+Quantifying retrieval accuracy.
+Quantifying bias.
 
 \section{Results}\label{sec:results}
 
