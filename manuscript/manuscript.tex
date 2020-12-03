@@ -203,7 +203,76 @@ Finally, for each of these estimated reflectance spectra, we estimated plant tra
 
 \section{Materials and Methods}\label{sec:methods}
 
+\subsection{Input data}\label{subsec:input-data}
+
+We obtained atmospherically corrected surface reflectance imaging spectroscopy data from a National Ecological Observatory (NEON) Airborne Observing Platform (AOP) scene in the Upper East River basing of Colorado, USA (39.0$^{\circ}$ N, 106.9$^{\circ}$ W) as processed by \citeA{chadwick2020integrating} and available on Google Earth Engine under the collection %\texttt{users/pgbrodrick/SFA/collections/ciacorn_priority}.
+A complete description of the data and processing methods are provided in \citeA{chadwick2020integrating}.
+Briefly, the scene is a mosaic from several NEON AOP flights performed in summer 2018.
+NEON AOP data have a spatial resolution of XXX m and an average spectral resolution of XXX nm over the range XXX nm to XXX nm. %TODO: Fill out these values.
+The atmospheric correction routine was a custom application of the Atmospheric CORrection Now (ACORN‐6LX, Imspec LLC, Glendale) software package accounting for fine-scale variation in topography and sun-sensor geometry.
+
+We used Google Earth Engine to manually select and extract 500 vegetation pixels from this scene (Figure~\ref{fig:sitemap}).
+The pixels exhibit substantial variability in brightness and spectral character:
+green reflectance (550 nm) ranges from XXX to XXX;
+near-infrared reflectance (1100 nm) ranges from XXX to XXX;
+and hyperspectral normalized difference vegetation index (NDVI; XXX and XXX nm bands) varies from XXX to XXX (Figure~\ref{fig:input-summary}).
+
+\begin{figure}[ht]
+  \centering
+  % \includegraphics[]{figures/...}
+  \caption{\label{fig:sitemap} \
+    True color composite of the input data location, with vegetation pixels highlighted.
+  }
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  % \includegraphics[options]{figures/...}
+  \caption{\label{fig:input-summary} \
+    Summary of 500 input reflectance spectra selected for this study.
+    Main figure shows 10 example spectra (black lines) and the full range of the input reflectance (gray shading).
+    Inset figure shows a histogram of hyperspectral normalized difference vegetation index (NDVI;\@red=XXXnm, NIR=XXXnm) across the 500 input spectra.
+  }
+\end{figure}
+
+
+\subsection{Simulation workflow}\label{subsec:workflow}
+
+To explore the contributions of different uncertainty sources, we performed a simulation workflow that consisted of three major steps:
+First, starting from known surface reflectance (Section~\ref{subsec:input-data}), we simulated radiance as it would be measured by a satellite, accounting for different combinations of surface elevation, atmospheric composition, sun-sensor geometry, and detector characteristics (e.g., signal-to-noise ratio) (Section~\ref{subsec:}).
+Second, for each of these simulated measurements, we performed atmospheric correction to estimate surface reflectance with uncertainty.
+Third, for each of these estimated reflectance spectra, we estimated plant traits using existing models.
+
+\subsubsection{Simulating measured radiance}\label{subsubsec:radiance}
+
+Following \citeA{thompson2018optimal}, we model top-of-atmosphere radiance ($L_{TOA}$) as a function of incoming solar irradiance ($e_{0}$), surface reflectance ($\rho_{s}$), and three terms describing atmospheric optical properties:
+the path reflectance ($\rho_{a}$), transmittance ($t$), and spherical albedo ($s$).
+Assuming that the entire reflectance process is Lambertian, and accounting for the solar zenith angle ($\theta_{s}$), the expression for TOA radiance is:
+
+\begin{linenomath*}
+\begin{equation}
+  L_{TOA} = \frac{e_{0}\cos(\theta_{s})}{\pi}\left( \rho_{a} + \frac{t \rho_{s}}{1 - s \rho_{s}} \right)
+\end{equation}
+\end{linenomath*}
+
+
+To simulate top-of-atmosphere radiance, we used a hybrid approach recently developed by Broderick et al.~\emph{in review} (sRTMnet)that combines an atmospheric radiative transfer model (RTM) based on a computationally efficient successive orders of scattering approximation~\cite<Second Simulation of a Satellite Signal in the Solar Spectrum-Vector, 6SV, version 2.1,>{kotchenova2006validation} with a neural network-based emulator of a more advanced RTM~\cite<MODTRAN,>{berk2017validation}.
+
+
+
+
+For a given combination of surface elevation and atmospheric conditions (aerosol optical depth and water vapor content), we simulated
+
+\subsubsection{Atmospheric correction via optimal estimation}\label{subsubsec:isofit}
+
 We used optimal estimation as implemented in the ``Isofit'' Python library~\cite{thompson2019optimal,thompson2018optimal}.
+As the underlying atmospheric RTM, we used the same hybrid sRTMnet approach as described in Section~\ref{subsubsec:radiance}.
+
+\subsubsection{Estimating plant functional traits}\label{subsubsec:traits}
+
+\subsection{Analysis}\label{subsec:analysis}
+
+We quantified the contributions of each uncertainty source to both estimates of surface reflectance and the final trait estimates.
 
 \section{Results}\label{sec:results}
 

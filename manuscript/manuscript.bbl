@@ -1,6 +1,512 @@
 \begin{thebibliography}{}
 
 \bibitem [\protect \citeauthoryear {%
+Berk%
+\ \BBA {} Hawes%
+}{%
+Berk%
+\ \BBA {} Hawes%
+}{%
+{\protect \APACyear {2017}}%
+}]{%
+berk2017validation}
+\APACinsertmetastar {%
+berk2017validation}%
+\begin{APACrefauthors}%
+Berk, A.%
+\BCBT {}\ \BBA {} Hawes, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{{\APACmonth{12}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Validation of {{MODTRAN}}\textregistered 6 and Its
+  Line-by-Line Algorithm} {Validation of {{MODTRAN}}\textregistered 6 and its
+  line-by-line algorithm}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Quantitative Spectroscopy and Radiative
+  Transfer}{203}{}{542--556}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.jqsrt.2017.03.004} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Bonan%
+, Oleson%
+, Fisher%
+, Lasslop%
+\BCBL {}\ \BBA {} Reichstein%
+}{%
+Bonan%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+bonan_2012_reconciling}
+\APACinsertmetastar {%
+bonan_2012_reconciling}%
+\begin{APACrefauthors}%
+Bonan, G\BPBI B.%
+, Oleson, K\BPBI W.%
+, Fisher, R\BPBI A.%
+, Lasslop, G.%
+\BCBL {}\ \BBA {} Reichstein, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{{\APACmonth{06}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Reconciling Leaf Physiological Traits and Canopy Flux
+  Data: Use of the Try and Fluxnet Databases in the Community Land Model
+  Version 4} {Reconciling leaf physiological traits and canopy flux data: Use
+  of the try and fluxnet databases in the community land model version
+  4}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Geophysical Research:
+  Biogeosciences}{117}{G2}{n/a-n/a}.
+\newblock
+\begin{APACrefDOI} \doi{10.1029/2011jg001913} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cadotte%
+\ \BBA {} Tucker%
+}{%
+Cadotte%
+\ \BBA {} Tucker%
+}{%
+{\protect \APACyear {2017}}%
+}]{%
+cadotte2017should}
+\APACinsertmetastar {%
+cadotte2017should}%
+\begin{APACrefauthors}%
+Cadotte, M\BPBI W.%
+\BCBT {}\ \BBA {} Tucker, C\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{{\APACmonth{06}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Should {{Environmental Filtering}} Be {{Abandoned}}?}
+  {Should {{Environmental Filtering}} be {{Abandoned}}?}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Trends in Ecology \& Evolution}{32}{6}{429--437}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.tree.2017.03.004} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{Cavender-Bares}%
+, Gamon%
+\BCBL {}\ \BBA {} Townsend%
+}{%
+{Cavender-Bares}%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2020}}%
+}]{%
+cavender-bares2020remote}
+\APACinsertmetastar {%
+cavender-bares2020remote}%
+\begin{APACrefauthors}%
+{Cavender-Bares}, J.%
+, Gamon, J\BPBI A.%
+\BCBL {}\ \BBA {} Townsend, P\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2020}.
+\newblock
+\APACrefbtitle {Remote {{Sensing}} of {{Plant Biodiversity}}} {Remote
+  {{Sensing}} of {{Plant Biodiversity}}}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Chadwick%
+\ \protect \BOthers {.}}{%
+Chadwick%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2020}}%
+}]{%
+chadwick2020integrating}
+\APACinsertmetastar {%
+chadwick2020integrating}%
+\begin{APACrefauthors}%
+Chadwick, K\BPBI D.%
+, Brodrick, P\BPBI G.%
+, Grant, K.%
+, Goulden, T.%
+, Henderson, A.%
+, Falco, N.%
+\BDBL {}Maher, K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Integrating Airborne Remote Sensing and Field Campaigns
+  for Ecology and {{Earth}} System Science} {Integrating airborne remote
+  sensing and field campaigns for ecology and {{Earth}} system science}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Methods in Ecology and Evolution}{11}{11}{1492--1508}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/2041-210X.13463} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cornwell%
+, Pearse%
+, Dalrymple%
+\BCBL {}\ \BBA {} Zanne%
+}{%
+Cornwell%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+cornwell_2019_what}
+\APACinsertmetastar {%
+cornwell_2019_what}%
+\begin{APACrefauthors}%
+Cornwell, W\BPBI K.%
+, Pearse, W\BPBI D.%
+, Dalrymple, R\BPBI L.%
+\BCBL {}\ \BBA {} Zanne, A\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{{\APACmonth{08}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {What We (Don't) Know about Global Plant Diversity} {What
+  we (don't) know about global plant diversity}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Ecography}{}{}{}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/ecog.04481} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Feng%
+\ \BBA {} Dietze%
+}{%
+Feng%
+\ \BBA {} Dietze%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+feng2013scale}
+\APACinsertmetastar {%
+feng2013scale}%
+\begin{APACrefauthors}%
+Feng, X.%
+\BCBT {}\ \BBA {} Dietze, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{{\APACmonth{12}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Scale Dependence in the Effects of Leaf Ecophysiological
+  Traits on Photosynthesis: {{Bayesian}} Parameterization of Photosynthesis
+  Models} {Scale dependence in the effects of leaf ecophysiological traits on
+  photosynthesis: {{Bayesian}} parameterization of photosynthesis
+  models}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{New Phytologist}{200}{4}{1132--1144}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/nph.12454} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Funk%
+\ \protect \BOthers {.}}{%
+Funk%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+funk2017revisiting}
+\APACinsertmetastar {%
+funk2017revisiting}%
+\begin{APACrefauthors}%
+Funk, J\BPBI L.%
+, Larson, J\BPBI E.%
+, Ames, G\BPBI M.%
+, Butterfield, B\BPBI J.%
+, Cavender-Bares, J.%
+, Firn, J.%
+\BDBL {}Wright, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Revisiting the {{Holy Grail}}: Using Plant Functional
+  Traits to Understand Ecological Processes} {Revisiting the {{Holy Grail}}:
+  Using plant functional traits to understand ecological processes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Biological Reviews}{92}{2}{1156--1173}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/brv.12275} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Harper%
+\ \protect \BOthers {.}}{%
+Harper%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+harper2016improved}
+\APACinsertmetastar {%
+harper2016improved}%
+\begin{APACrefauthors}%
+Harper, A\BPBI B.%
+, Cox, P\BPBI M.%
+, Friedlingstein, P.%
+, Wiltshire, A\BPBI J.%
+, Jones, C\BPBI D.%
+, Sitch, S.%
+\BDBL {}Bodegom, P\BPBI V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{{\APACmonth{07}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Improved Representation of Plant Functional Types and
+  Physiology in the {{Joint UK Land Environment Simulator}} ({{JULES}} v4.2)
+  Using Plant Trait Information} {Improved representation of plant functional
+  types and physiology in the {{Joint UK Land Environment Simulator}}
+  ({{JULES}} v4.2) using plant trait information}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Geosci. Model Dev.}{9}{7}{2415--2440}.
+\newblock
+\begin{APACrefDOI} \doi{10.5194/gmd-9-2415-2016} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Jetz%
+\ \protect \BOthers {.}}{%
+Jetz%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+jetz_2016_monitoring}
+\APACinsertmetastar {%
+jetz_2016_monitoring}%
+\begin{APACrefauthors}%
+Jetz, W.%
+, {Cavender-Bares}, J.%
+, Pavlick, R.%
+, Schimel, D.%
+, Davis, F\BPBI W.%
+, Asner, G\BPBI P.%
+\BDBL {}Ustin, S\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{{\APACmonth{03}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Monitoring Plant Functional Diversity from Space}
+  {Monitoring plant functional diversity from space}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Plants}{}{}{16024}.
+\newblock
+\begin{APACrefDOI} \doi{10.1038/nplants.2016.24} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kattge%
+\ \protect \BOthers {.}}{%
+Kattge%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2020}}%
+}]{%
+kattge2020try}
+\APACinsertmetastar {%
+kattge2020try}%
+\begin{APACrefauthors}%
+Kattge, J.%
+, B{\"o}nisch, G.%
+, D{\'i}az, S.%
+, Lavorel, S.%
+, Prentice, I\BPBI C.%
+, Leadley, P.%
+\BDBL {}Wirth, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{{TRY}} Plant Trait Database \textendash{} Enhanced
+  Coverage and Open Access} {{{TRY}} plant trait database \textendash{}
+  enhanced coverage and open access}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Global Change Biology}{26}{1}{119--188}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/gcb.14904} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kotchenova%
+, Vermote%
+, Matarrese%
+\BCBL {}\ \BBA {} Klemm%
+}{%
+Kotchenova%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2006}}%
+}]{%
+kotchenova2006validation}
+\APACinsertmetastar {%
+kotchenova2006validation}%
+\begin{APACrefauthors}%
+Kotchenova, S\BPBI Y.%
+, Vermote, E\BPBI F.%
+, Matarrese, R.%
+\BCBL {}\ \BBA {} Klemm, F\BPBI J., Jr.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{{\APACmonth{09}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Validation of a Vector Version of the {{6S}} Radiative
+  Transfer Code for Atmospheric Correction of Satellite Data {{Part I}}:
+  {{Path}} Radiance} {Validation of a vector version of the {{6S}} radiative
+  transfer code for atmospheric correction of satellite data {{Part I}}:
+  {{Path}} radiance}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Applied Optics}{45}{26}{6762}.
+\newblock
+\begin{APACrefDOI} \doi{10.1364/AO.45.006762} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lavorel%
+\ \BBA {} Garnier%
+}{%
+Lavorel%
+\ \BBA {} Garnier%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+lavorel2002predicting}
+\APACinsertmetastar {%
+lavorel2002predicting}%
+\begin{APACrefauthors}%
+Lavorel, S.%
+\BCBT {}\ \BBA {} Garnier, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{{\APACmonth{10}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Predicting Changes in Community Composition and
+  Ecosystem Functioning from Plant Traits: Revisiting the {{Holy Grail}}}
+  {Predicting changes in community composition and ecosystem functioning from
+  plant traits: Revisiting the {{Holy Grail}}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Functional Ecology}{16}{5}{545--556}.
+\newblock
+\begin{APACrefDOI} \doi{10.1046/j.1365-2435.2002.00664.x} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Maitner%
+\ \protect \BOthers {.}}{%
+Maitner%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+maitner2018bien}
+\APACinsertmetastar {%
+maitner2018bien}%
+\begin{APACrefauthors}%
+Maitner, B\BPBI S.%
+, Boyle, B.%
+, Casler, N.%
+, Condit, R.%
+, Donoghue, J.%
+, Dur{\'a}n, S\BPBI M.%
+\BDBL {}Enquist, B\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The Bien r Package: {{A}} Tool to Access the {{Botanical
+  Information}} and {{Ecology Network}} ({{BIEN}}) Database} {The bien r
+  package: {{A}} tool to access the {{Botanical Information}} and {{Ecology
+  Network}} ({{BIEN}}) database}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Methods in Ecology and Evolution}{9}{2}{373--379}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/2041-210X.12861} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Marvin%
+\ \protect \BOthers {.}}{%
+Marvin%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+marvin2014amazonian}
+\APACinsertmetastar {%
+marvin2014amazonian}%
+\begin{APACrefauthors}%
+Marvin, D\BPBI C.%
+, Asner, G\BPBI P.%
+, Knapp, D\BPBI E.%
+, Anderson, C\BPBI B.%
+, Martin, R\BPBI E.%
+, Sinca, F.%
+\BCBL {}\ \BBA {} Tupayachi, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{{\APACmonth{12}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Amazonian Landscapes and the Bias in Field Studies of
+  Forest Structure and Biomass} {Amazonian landscapes and the bias in field
+  studies of forest structure and biomass}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Proceedings of the National Academy of
+  Sciences}{111}{48}{E5224-E5232}.
+\newblock
+\begin{APACrefDOI} \doi{10.1073/pnas.1412999111} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Shiklomanov%
+, Bond-Lamberty%
+, Atkins%
+\BCBL {}\ \BBA {} Gough%
+}{%
+Shiklomanov%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2020}}%
+}]{%
+shiklomanov2020structure}
+\APACinsertmetastar {%
+shiklomanov2020structure}%
+\begin{APACrefauthors}%
+Shiklomanov, A\BPBI N.%
+, Bond-Lamberty, B.%
+, Atkins, J\BPBI W.%
+\BCBL {}\ \BBA {} Gough, C\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Structure and Parameter Uncertainty in Centennial
+  Projections of Forest Community Structure and Carbon Cycling} {Structure and
+  parameter uncertainty in centennial projections of forest community structure
+  and carbon cycling}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Global Change Biology}{n/a}{n/a}{}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/gcb.15164} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Thompson%
 \ \protect \BOthers {.}}{%
 Thompson%
@@ -37,6 +543,38 @@ Thompson%
 \ \protect \BOthers {.}}{%
 Thompson%
 \ \protect \BOthers {.}}{%
+{\protect \APACyear {2020}}%
+}]{%
+thompson2020quantifying}
+\APACinsertmetastar {%
+thompson2020quantifying}%
+\begin{APACrefauthors}%
+Thompson, D\BPBI R.%
+, Braverman, A.%
+, Brodrick, P\BPBI G.%
+, Candela, A.%
+, Carmon, N.%
+, Clark, R\BPBI N.%
+\BDBL {}Wettergreen, D\BPBI S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2020}{{\APACmonth{09}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Quantifying Uncertainty for Remote Spectroscopy of
+  Surface Composition} {Quantifying uncertainty for remote spectroscopy of
+  surface composition}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Remote Sensing of Environment}{247}{}{111898}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.rse.2020.111898} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Thompson%
+\ \protect \BOthers {.}}{%
+Thompson%
+\ \protect \BOthers {.}}{%
 {\protect \APACyear {2018}}%
 }]{%
 thompson2018optimal}
@@ -61,6 +599,70 @@ Thompson, D\BPBI R.%
 \APACjournalVolNumPages{Remote Sensing of Environment}{216}{}{355--373}.
 \newblock
 \begin{APACrefDOI} \doi{10.1016/j.rse.2018.07.003} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Verrelst%
+\ \protect \BOthers {.}}{%
+Verrelst%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+verrelst2019quantifying}
+\APACinsertmetastar {%
+verrelst2019quantifying}%
+\begin{APACrefauthors}%
+Verrelst, J.%
+, Malenovsk{\'y}, Z.%
+, {Van der Tol}, C.%
+, {Camps-Valls}, G.%
+, {Gastellu-Etchegorry}, J\BHBI P.%
+, Lewis, P.%
+\BDBL {}Moreno, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{{\APACmonth{05}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Quantifying {{Vegetation Biophysical Variables}} from
+  {{Imaging Spectroscopy Data}}: {{A Review}} on {{Retrieval Methods}}}
+  {Quantifying {{Vegetation Biophysical Variables}} from {{Imaging Spectroscopy
+  Data}}: {{A Review}} on {{Retrieval Methods}}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Surveys in Geophysics}{40}{3}{589--629}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s10712-018-9478-y} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Violle%
+\ \protect \BOthers {.}}{%
+Violle%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2007}}%
+}]{%
+violle2007let}
+\APACinsertmetastar {%
+violle2007let}%
+\begin{APACrefauthors}%
+Violle, C.%
+, Navas, M\BHBI L.%
+, Vile, D.%
+, Kazakou, E.%
+, Fortunel, C.%
+, Hummel, I.%
+\BCBL {}\ \BBA {} Garnier, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{{\APACmonth{05}}}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Let the Concept of Trait Be Functional!} {Let the
+  concept of trait be functional!}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Oikos}{116}{5}{882--892}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/j.0030-1299.2007.15559.x} \end{APACrefDOI}
 \PrintBackRefs{\CurrentBib}
 
 \end{thebibliography}

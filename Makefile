@@ -1,9 +1,9 @@
-.PHONY: all targets
+.PHONY: all targets pdf
 
-all: manuscript/manuscript.pdf
+all: pdf
 
 targets:
 	Rscript -e "targets::tar_make()"
 
-manuscript/manuscript.pdf:
+pdf:
 	latexmk -cd -pdf manuscript/manuscript.tex
