@@ -474,39 +474,6 @@ Marvin, D\BPBI C.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
-Shiklomanov%
-, Bond-Lamberty%
-, Atkins%
-\BCBL {}\ \BBA {} Gough%
-}{%
-Shiklomanov%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2020}}%
-}]{%
-shiklomanov2020structure}
-\APACinsertmetastar {%
-shiklomanov2020structure}%
-\begin{APACrefauthors}%
-Shiklomanov, A\BPBI N.%
-, Bond-Lamberty, B.%
-, Atkins, J\BPBI W.%
-\BCBL {}\ \BBA {} Gough, C\BPBI M.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2020}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {Structure and Parameter Uncertainty in Centennial
-  Projections of Forest Community Structure and Carbon Cycling} {Structure and
-  parameter uncertainty in centennial projections of forest community structure
-  and carbon cycling}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Global Change Biology}{n/a}{n/a}{}.
-\newblock
-\begin{APACrefDOI} \doi{10.1111/gcb.15164} \end{APACrefDOI}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
 Singh%
 , Serbin%
 , McNeil%

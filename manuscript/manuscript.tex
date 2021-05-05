@@ -299,11 +299,12 @@ For sun-sensor geometries, we considered a factorial combination of observation 
   \hline
   Variable & Values & Comments \\
   \hline
-  Atmosphere & \emph{See Table~\ref{tab:atmospheres}} & \\
-  Date & March 20, June 21, September 22, December 21 & Northern hemisphere equinoxes and solstices
-  Local time (24H) & 9:30, 10:00, 10:30, 12, 15:00 & Spaced over the day, with denser sampling around typical ``A-train'' satellite overpass around 10:30AM \\
-  Sensor zenith (degrees) & 0, 10, 30  & \\
-  Sensor relative azimuth (degrees) & 0, 30, 60, 90, 180 & \\
+  Atmosphere & 10 different atmospheres; \emph{see Table~\ref{tab:atmospheres}} & \\
+  Local time (24H) & 8:30, 9:30, 10:00, 10:30, 12, 15:00 & Spaced over the day, with denser sampling around typical ``A-train'' satellite overpass around 10:30AM \\
+  Elevation (km) & 0.01, 0.5, 1, 2 & \\
+  Sensor zenith (degrees) & 0, 4, 8, 12  & \\  % NOTE: David says 8 and 12
+  Sensor relative azimuth (degrees) & 0, 45, 90, 180 & \\
+  Sensor mean SNR & 200, 300, 400 & \\
   \hline
   Total grid size & \multicolumn{2}{l}{64,800} \\
   \hline
@@ -329,6 +330,16 @@ Quantifying retrieval accuracy.
 Quantifying bias.
 
 \section{Results}\label{sec:results}
+
+Variability in top-of-atmosphere radiance simulations.
+
+Precision of reflectance retrievals.
+
+Variability in reflectance retrievals, by source.
+
+Precision of trait retrievals.
+
+Variability in trait retrievals, by source.
 
 \section{Discussion}\label{sec:discussion}
 
