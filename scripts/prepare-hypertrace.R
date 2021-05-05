@@ -49,7 +49,7 @@ ht_common <- list(
         unknowns = list(H2O_ABSCO = 0.01),
         radiative_transfer_engines = list(vswir = list(
           engine_name = "simulated_modtran",
-          engine_base_dir = "./6Sv-2.1",
+          engine_base_dir = "./6sv-2.1",
           aerosol_template_path = "../../data/aerosol_template.json",
           earth_sun_distance_file = "../../data/earth_sun_distance.txt",
           irradiance_file = "../../examples/20151026_SantaMonica/data/prism_optimized_irr.dat",
@@ -65,21 +65,21 @@ ht_common <- list(
     )))
   ),
   hypertrace = list(
-    dayofyear = c(79, 171, 265, 365),  # March 20, June 21, Sept 22, Dec 21
-    localtime = c(9.5, 10, 10.5, 12, 15),
     longitude = I(0),
+    latitude = I(0),
     elevation_km = c(0.01, 0.5, 1, 2),
     atm_aod_h2o = atmosphere_list,
     inversion_mode = I("inversion"),
-    surface_file = I("./hypertrace-data/priors/aviris-ng/surface_EMIT.mat")
+    surface_file = I("./hypertrace-data/priors/aviris-ng/surface_EMIT.mat"),
+    outdir_scheme = I("hash")
   )
 )
 observer_zenith <- c(0, 10, 30)
 observer_azimuth <- c(0, 90, 180)
-latitude <- c(0, 30, 60)
+localtime <- c(8.5, 9.5, 10, 10.5, 12, 15)
 
 ht_iterations <- prod(lengths(ht_common$hypertrace))
-ht_loops <- prod(length(noise_files), length(observer_zenith), length(observer_azimuth), length(latitude))
+ht_loops <- prod(length(noise_files), length(observer_zenith), length(observer_azimuth), length(localtime))
 message("Total iterations per job: ", ht_iterations)
 message("Total jobs: ", ht_loops)
 message("Input reflectances: ", length(reflectance_files))
@@ -90,15 +90,17 @@ for (rfile in reflectance_files) {
   for (noisefile in noise_files) {
     for (ozen in observer_zenith) {
       for (oaz in observer_azimuth) {
-        for (lat in latitude) {
+        for (lt in localtime) {
           i <- i + 1
           outfile <- path(outdir, "configs", sprintf("%s-%03d.json", path_ext_remove(basename(rfile)), i))
+          out_nc <- path(ht_common[["outdir"]], sprintf("%s-%03d.nc", path_ext_remove(basename(rfile)), i))
           ht_settings <- modifyList(ht_common, list(
             reflectance_file = rfile,
+            outfile = out_nc,
             hypertrace = list(observer_zenith = I(ozen),
                               observer_azimuth = I(oaz),
-                              latitude = I(lat),
-                              noisefile = I(noisefile))
+                              noisefile = I(noisefile),
+                              localtime = I(lt))
           ))
           write(toJSON(ht_settings, auto_unbox = TRUE, pretty = TRUE), outfile)
         }
