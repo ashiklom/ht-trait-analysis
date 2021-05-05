@@ -9,4 +9,5 @@ set -e
 source ~/.bashrc
 
 conda activate isofit
-python workflow.py $(printf "./ht-trait-inputs/configs/chadwick-%03d.json" $SLURM_ARRAY_TASK_ID)
+ray start --head
+python workflow.py $(printf "./ht-trait-inputs/configs/chadwick-%03d.json" $SLURM_ARRAY_TASK_ID) --clean --cluster
