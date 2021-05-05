@@ -49,9 +49,6 @@ for (i in seq_along(ncfiles)) {
   message(ncf)
   do_rad <- i > nrad
   do_refl <- i > nrefl
-  if (!(do_rad || do_refl)) {
-    message("Skipping iteration ", i)
-  }
   nc <- nc_open(ncf)
 
   ht_vec <- ncvar_get(nc, "hypertrace")
