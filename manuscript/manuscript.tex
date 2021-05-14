@@ -182,6 +182,8 @@ Although databases of in-situ trait measurements are larger and more open than e
 Fortunately, multiple decades of research have demonstrated that plant traits can be successfully estimated from remote measurements of canopy reflectance~\cite{cavender-bares2020remote, verrelst2019quantifying}.
 Compared to field measurements, airborne and satellite measurements cover larger areas to reduce sampling biases, particularly in remote and rugged landscapes~\cite{jetz_2016_monitoring, marvin2014amazonian}.
 
+Decades of remote sensing observations, at various spectral, spatial and temporal resolutions~\citep{ustin2021current}.
+
 The advantages of remote trait mapping come at a cost of much larger uncertainties.
 Uncertainties in remote trait estimation originate from multiple sources.
 First, the relationship between canopy reflectance and leaf traits is usually at least partially empirical and therefore uncertain.
@@ -240,10 +242,18 @@ and hyperspectral normalized difference vegetation index (NDVI; XXX and XXX nm b
 
 \subsection{Simulation workflow}\label{subsec:workflow}
 
-To explore the contributions of different uncertainty sources, we performed a simulation workflow that consisted of three major steps:
+To explore the contributions of different uncertainty sources, we performed a simulation workflow (Figure~\ref{fig:workflow}) that consisted of three major steps:
 First, starting from known surface reflectance (Section~\ref{subsec:input-data}), we simulated radiance as it would be measured by a satellite, accounting for different combinations of surface elevation, atmospheric composition, sun-sensor geometry, and detector characteristics (e.g., signal-to-noise ratio) (Section~\ref{subsec:}).
 Second, for each of these simulated measurements, we performed atmospheric correction to estimate surface reflectance with uncertainty.
 Third, for each of these estimated reflectance spectra, we estimated plant traits using existing models.
+
+\begin{figure}[ht]
+  \centering
+  % \includegraphics[options]{figures/path.pdf}
+  \caption{\label{fig:workflow}\
+    Hypertrace workflow.
+  }
+\end{figure}
 
 \subsubsection{Simulating measured radiance}\label{subsubsec:radiance}
 
@@ -329,13 +339,51 @@ Partitioning uncertainty.
 Quantifying retrieval accuracy.
 Quantifying bias.
 
+To facilitate interpretation of the reflectance retrievals, we binned some reflectance calculations according to the following wavelength regions:
+visible (``VIS'', $[380, 680)$ nm), % chktex 9
+red edge (``RE'', $[680, 750)$ nm), % chktex 9
+near-infrared (``NIR'', $[750, 1350]$ nm),
+shortwave infrared 1 (``SWIR1'', $[1470, 1780]$ nm),
+and shortwave infrared 2 (``SWIR2'', $[2000, 2450]$ nm).
+
 \section{Results}\label{sec:results}
 
-Variability in top-of-atmosphere radiance simulations.
+\subsection{Top-of-atmosphere radiance}\label{subsec:results-radiance}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.48\textwidth]{figures/radiance-by-atmosphere}
+  \includegraphics[width=0.48\textwidth]{figures/radiance-by-elevation}
+  \includegraphics[width=0.48\textwidth]{figures/radiance-by-time}
+  \includegraphics[width=0.48\textwidth]{figures/radiance-by-ozen}
+  \caption{\label{fig:radiance}\
+    Variability in simulated top-of-atmosphere radiance from the Hypertrace workflow, by
+    (1) input atmosphere,
+    (2) local time,
+    (3) surface elevation,
+    (4) sensor zenith angle.
+    Values are wavelength-specific means across all variables except the indicated variables
+    (e.g., panel (1) is the mean by atmosphere across all simulated sun-sensor-target geometries, etc.)
+    for one sample reflectance.
+    See Table~\ref{tab:combinations} for additional input descriptions.
+  }
+\end{figure}
+
+Simulated top-of-atmosphere radiance varied in predictable ways with atmospheric composition and sun-sensor-target geometry (Figure~\ref{fig:radiance}).
+Increasing aerosol optical depth increased simulated radiance in the visible (400--700 nm) region, as expected from the scattering properties of aerosols.
+Increasing water vapor concentration reduced simulated radiance in regions of the spectrum associated with strong water absorption (around 900 nm and 1400 nm).
+Simulated radiance was highly sensitive to observation time, with maximum values across the spectrum at local solar noon and lower values earlier or later in the day.
+Surface elevation affects radiance by modifying the contribution of atmospheric scattering and attenuation relative to the contribution of surface reflectance;
+therefore, a higher-elevation surface is darker in the visible region (because of reduced aerosol scattering) and brighter around the atmospheric water vapor absorption bands (because of reduced water vapor).
+Observer relative azimuth angle had only a minimal influence on top-of-atmosphere radiance (results not shown).
+
+\subsection{Reflectance retrievals}\label{subsec:results-reflectance}
 
 Precision of reflectance retrievals.
 
 Variability in reflectance retrievals, by source.
+
+\subsection{Trait retrievals}\label{subsec:results-traits}
 
 Precision of trait retrievals.
 
