@@ -209,17 +209,20 @@ Finally, for each of these estimated reflectance spectra, we estimated plant tra
 
 \emergencystretch 2em  % Fix problematic long texttt
 We obtained atmospherically corrected surface reflectance imaging spectroscopy data from a National Ecological Observatory (NEON) Airborne Observing Platform (AOP) scene in the Upper East River basing of Colorado, USA (39.0$^{\circ}$ N, 106.9$^{\circ}$ W) as processed by \citeA{chadwick2020integrating} and available on Google Earth Engine under the collection \texttt{users/pgbrodrick/SFA/collections/ciacorn\_priority}.
-A complete description of the data and processing methods are provided in \citeA{chadwick2020integrating}.
-Briefly, the scene is a mosaic from several NEON AOP flights performed in summer 2018.
-NEON AOP data have a spatial resolution of XXX m and an average spectral resolution of XXX nm over the range XXX nm to XXX nm. %TODO: Fill out these values.
+Briefly, these data are from several NEON AOP flights performed in summer 2018.
+NEON AOP data have a spatial resolution of 1 m and an average spectral resolution of 5 nm over the range 383 nm to 2512 nm.
 The atmospheric correction routine was a custom application of the Atmospheric CORrection Now (ACORN‐6LX, Imspec LLC, Glendale) software package accounting for fine-scale variation in topography and sun-sensor geometry.
 
 \fussy  % Return to defaults
-We used Google Earth Engine to manually select and extract 500 vegetation pixels from this scene (Figure~\ref{fig:sitemap}).
-The pixels exhibit substantial variability in brightness and spectral character:
+To evaluate not just relative but also _absolute_ accuracy of plant trait retrievals, 
+we used the same previously-selected canopy reflectance pixels as in \citeA{chadwick2020integrating},
+which were paired with ground reference measurements of plant traits.
+These pixels exhibit substantial variability in brightness and spectral character:
 green reflectance (550 nm) ranges from XXX to XXX;
 near-infrared reflectance (1100 nm) ranges from XXX to XXX;
 and hyperspectral normalized difference vegetation index (NDVI; XXX and XXX nm bands) varies from XXX to XXX (Figure~\ref{fig:input-summary}).
+
+A complete description of the data and processing methods are provided in \citeA{chadwick2020integrating}.
 
 \begin{figure}[ht]
   \centering
@@ -231,11 +234,11 @@ and hyperspectral normalized difference vegetation index (NDVI; XXX and XXX nm b
 
 \begin{figure}[ht]
   \centering
-  % \includegraphics[options]{figures/...}
+  \includegraphics[options]{figures/input-reflectance-sample.png}
   \caption{\label{fig:input-summary} \
-    Summary of 500 input reflectance spectra selected for this study.
-    Main figure shows 10 example spectra (black lines) and the full range of the input reflectance (gray shading).
-    Inset figure shows a histogram of hyperspectral normalized difference vegetation index (NDVI;\@red=XXXnm, NIR=XXXnm) across the 500 input spectra.
+  Summary of input surface reflectance pixels used for this study.
+  Main figure shows the darkest and brightest spectra, and every 8th spectrum sorted by brightness rank.
+  Inset figure shows a histogram of hyperspectral normalized difference vegetation index (NDVI;\@red=669nm, NIR=829nm) across the 500 input spectra.
   }
 \end{figure}
 

@@ -13,6 +13,8 @@ library(raster)
 library(fs)
 library(dplyr)
 library(tidyr)
+library(ggplot2)
+library(patchwork)
 
 neon_wl <- readLines(path(
   "data", "chadwick", "kdchadwick-east_river_trait_modeling-5f6b260",
@@ -45,16 +47,48 @@ crown_data_long <- crown_data %>%
   left_join(waves, "band") %>%
   mutate(reflectance = reflectance / 10000)
 
-if (FALSE) {
-  library(ggplot)
-  ids <- crown_data_long %>% distinct(ID) %>% pull() %>% sort()
-  crown_data_long %>%
-    filter(ID %in% head(ids)) %>%
-    mutate(reflectance = if_else(bad_wl(wavelength), NA_real_, reflectance)) %>%
-    ggplot() +
-    aes(x = wavelength, y = reflectance, group = spec_id, color = factor(ID)) +
-    geom_line()
-}
+# Draw input reflectance plot
+crown_data_sub <- crown_data_long %>%
+  filter(wavelength > 900, wavelength < 1100) %>%
+  group_by(ID) %>%
+  summarize(nir_mean = mean(reflectance)) %>%
+  ungroup()
+id_sel <- crown_data_sub %>%
+  mutate(r = rank(nir_mean)) %>%
+  filter(r == 1 | r == max(r) | r %% 8 == 0) %>%
+  pull(ID)
+mainplot <- crown_data_long %>%
+  filter(ID %in% id_sel) %>%
+  mutate(reflectance = if_else(bad_wl(wavelength), NA_real_, reflectance)) %>%
+  group_by(ID, wavelength) %>%
+  summarize(reflectance = mean(reflectance)) %>%
+  ungroup() %>%
+  ggplot() +
+  aes(x = wavelength, y = reflectance, group = ID) +
+  geom_line() +
+  labs(x = "Wavelength (nm)", y = "Reflectance [0-1]") +
+  theme_bw()
+ndvi <- crown_data_long %>%
+  mutate(wavelength = floor(wavelength)) %>%
+  filter(wavelength == 829 | wavelength == 669) %>%
+  select(spec_id, ID, reflectance, wavelength) %>%
+  pivot_wider(
+    names_from = "wavelength",
+    values_from = "reflectance"
+  ) %>%
+  mutate(ndvi = (`829`-`669`) / (`829`+`669`))
+inset <- ggplot(ndvi) +
+  aes(x = ndvi) +
+  geom_histogram() +
+  labs(x = "NDVI", y = "Count") +
+  theme_bw()
+
+plt <- mainplot + inset_element(inset, 0.5, 0.5, 0.99, 0.99)
+
+ggsave(
+  "figures/input-reflectance-sample.png", plt,
+  width = 5.5, height = 5.5, units = "in", dpi = 300
+)
 
 wl <- crown_data_long %>%
   distinct(wavelength) %>%
