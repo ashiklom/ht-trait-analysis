@@ -249,6 +249,7 @@ To explore the contributions of different uncertainty sources, we performed a si
 First, starting from known surface reflectance (Section~\ref{subsec:input-data}), we simulated radiance as it would be measured by a satellite, accounting for different combinations of surface elevation, atmospheric composition, sun-sensor geometry, and detector characteristics (e.g., signal-to-noise ratio) (Section~\ref{subsec:}).
 Second, for each of these simulated measurements, we performed atmospheric correction to estimate surface reflectance with uncertainty.
 Third, for each of these estimated reflectance spectra, we estimated plant traits using existing models.
+We provide additional details on each of these steps below.
 
 \begin{figure}[ht]
   \centering
@@ -260,28 +261,28 @@ Third, for each of these estimated reflectance spectra, we estimated plant trait
 
 \subsubsection{Simulating measured radiance}\label{subsubsec:radiance}
 
-Following \citeA{thompson2018optimal}, we model top-of-atmosphere radiance ($L_{TOA}$) as a function of incoming solar irradiance ($e_{0}$), surface reflectance ($\rho_{s}$), and three terms describing atmospheric optical properties:
+Following \citeA{thompson2018optimal}, we model top-of-atmosphere (TOA) radiance ($L_{\mathrm{TOA}}$) as a function of incoming solar irradiance ($e_{0}$), surface reflectance ($\rho_{s}$), and three terms describing atmospheric optical properties:
 the path reflectance ($\rho_{a}$), transmittance ($t$), and spherical albedo ($s$).
 Assuming that the entire reflectance process is Lambertian, and accounting for the solar zenith angle ($\theta_{s}$), the expression for TOA radiance is:
 
 \begin{linenomath*}
 \begin{equation}
-  L_{TOA} = \frac{e_{0}\cos(\theta_{s})}{\pi}\left( \rho_{a} + \frac{t \rho_{s}}{1 - s \rho_{s}} \right)
+  L_{\mathrm{TOA}} = \frac{e_{0}\cos(\theta_{s})}{\pi}\left( \rho_{a} + \frac{t \rho_{s}}{1 - s \rho_{s}} \right)
 \end{equation}
 \end{linenomath*}
 
 The atmospheric optical properties ($\rho_{a}$, $t$, and $s$) all vary as a function of atmospheric composition and sun-sensor geometry.
-To estimate these quantities, we used a hybrid approach (sRTMnet, Brodrick et al.~\emph{in review}) that combines
+To estimate these quantities, we used a hybrid approach \cite<sRTMnet,>{brodrick2021generalized} that combines
 an atmospheric radiative transfer model (RTM) based on a computationally efficient successive orders of scattering approximation~\cite<Second Simulation of a Satellite Signal in the Solar Spectrum-Vector, 6SV, version 2.1,>{kotchenova2006validation}
 with a neural network-based emulator of a more advanced RTM~\cite<MODTRAN,>{berk2017validation}.
 
 In our experiment, we calculated these values over a factorial combination of atmospheric conditions, sun-sensor geometries, and additional mission characteristics (Table~\ref{tab:combinations}).
-For atmospheric conditions and surface elevation, we considered ten combinations identified as representative of global conditions (REF).
+For atmospheric conditions and surface elevation, we considered ten combinations identified as representative of global conditions (REF). % TODO
 These combinations included
 aerosol optical depth at 550 nm (AOD) ranging from 0.09 to 0.802,
 water vapor content ranging from 0.543 to 4.323 g cm$^{-2}$,
 surface elevation ranging from 77 to 3571 m above sea level,
-and two types of atmospheric profiles (REF): tropical and midlatitude summer (Table~\ref{tab:atmospheres}).
+and two types of atmospheric profiles (REF): tropical and midlatitude summer (Table~\ref{tab:atmospheres}).  % TODO
 For sun-sensor geometries, we considered a factorial combination of observation dates and times (which, combined with observation location, determine the position of the sun), sensor zenith angle, and sensor relative (to the sun's position) azimuth angle.
 
 \begin{table}
@@ -326,8 +327,9 @@ For sun-sensor geometries, we considered a factorial combination of observation 
 
 \subsubsection{Atmospheric correction via optimal estimation}\label{subsubsec:isofit}
 
-We used optimal estimation as implemented in the ``Isofit'' Python library~\cite{thompson2019optimal,thompson2018optimal}.
-As the underlying atmospheric RTM, we used the same hybrid sRTMnet approach as described in Section~\ref{subsubsec:radiance}.
+For atmospheric correction of TOA radiance, we used the Imaging Spectrometer Optimal Fitting (ISOFIT) Python library~\cite{thompson2019optimal,thompson2018optimal}.
+Briefly, ISOFIT uses optimal estimation \cite{rodgers2000inverse} to jointly estimate surface hemispherical-directional reflectance and the atmospheric state (water vapor content and total aerosol optical depth) and their uncertainties.
+ISOFIT supports several different atmospheric RTMs; for this study, we used the same hybrid sRTMnet approach as described in Section~\ref{subsubsec:radiance}.
 
 \subsubsection{Estimating plant functional traits}\label{subsubsec:traits}
 
